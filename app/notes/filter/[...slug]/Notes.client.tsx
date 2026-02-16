@@ -1,8 +1,8 @@
 "use client";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import NoteList from "../../components/NoteList/NoteList";
+import NoteList from "../../../../components/NoteList/NoteList";
 import css from "./page.module.css";
-import { fetchNotes } from "../../lib/api";
+import { fetchNotes } from "../../../../lib/api";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import SearchBox from "@/components/SearchBox/SearchBox";

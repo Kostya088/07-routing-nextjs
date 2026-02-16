@@ -11,6 +11,8 @@ export const notesApi = axios.create({
   },
 });
 
+export const tagList = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
+
 interface NotesApiResponse {
   notes: Note[];
   totalPages: number;
@@ -19,15 +21,23 @@ interface NotesApiResponse {
 type FetchNotesParams = {
   page: number;
   query?: string;
+  tag?: string;
 };
 
 export async function fetchNotes({
   page,
   query,
+  tag,
 }: FetchNotesParams): Promise<NotesApiResponse> {
   try {
+    if (!tag || tag === "All") {
+      const { data } = await notesApi.get<NotesApiResponse>("", {
+        params: { page, perPage: 12, search: query },
+      });
+      return data;
+    }
     const { data } = await notesApi.get<NotesApiResponse>("", {
-      params: { page, perPage: 12, search: query },
+      params: { page, perPage: 12, search: query, tag: tag },
     });
     return data;
   } catch (err) {
