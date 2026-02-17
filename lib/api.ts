@@ -30,7 +30,7 @@ export async function fetchNotes({
   tag,
 }: FetchNotesParams): Promise<NotesApiResponse> {
   try {
-    if (!tag || tag === "All") {
+    if (!tag || tag === "all") {
       const { data } = await notesApi.get<NotesApiResponse>("", {
         params: { page, perPage: 12, search: query },
       });
