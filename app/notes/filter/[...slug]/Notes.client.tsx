@@ -57,7 +57,7 @@ export default function NotesClient({ tag }: Props) {
           </button>
         </div>
       )}
-      <NoteList notes={notes} />
+      {notes.length > 0 && <NoteList notes={notes} />}
       {isModalOpen && (
         <Modal onClose={closeModal}>
           <NoteForm onCancel={closeModal} />
