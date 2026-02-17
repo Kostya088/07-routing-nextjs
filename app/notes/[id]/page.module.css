@@ -25,3 +25,19 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.backBtn {
+  padding: 8px 16px;
+  width: 100%;
+  font-size: 16px;
+  background-color: #f8f9fa;
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.backBtn:hover {
+  background-color: #e2e6ea;
+}
