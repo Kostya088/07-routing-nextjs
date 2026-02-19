@@ -22,7 +22,7 @@ export default function NotesClient({ tag }: Props) {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["notes", currentPage, searchQuery, tag],
     queryFn: () => fetchNotes({ page: currentPage, query: searchQuery, tag }),
     placeholderData: keepPreviousData,
@@ -42,22 +42,24 @@ export default function NotesClient({ tag }: Props) {
 
   return (
     <div className={css.app}>
-      {totalPages > 0 && (
-        <div className={css.toolbar}>
-          <SearchBox defaultValue={searchQuery} onChange={updateSearchQuery} />
-          {totalPages > 1 && (
-            <Pagination
-              totalPages={totalPages}
-              currentPage={currentPage}
-              setPage={setCurrentPage}
-            />
-          )}
-          <button type="button" className={css.button} onClick={openModal}>
-            Create note +
-          </button>
-        </div>
-      )}
+      <div className={css.toolbar}>
+        <SearchBox defaultValue={searchQuery} onChange={updateSearchQuery} />
+        {totalPages > 1 && (
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            setPage={setCurrentPage}
+          />
+        )}
+        <button type="button" className={css.button} onClick={openModal}>
+          Create note +
+        </button>
+      </div>
+
       {notes.length > 0 && <NoteList notes={notes} />}
+      {!isLoading && notes.length === 0 && (
+        <h2 style={{ textAlign: "center" }}>No search results</h2>
+      )}
       {isModalOpen && (
         <Modal onClose={closeModal}>
           <NoteForm onCancel={closeModal} />
